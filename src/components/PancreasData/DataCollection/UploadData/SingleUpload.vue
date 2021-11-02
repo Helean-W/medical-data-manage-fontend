@@ -1,14 +1,27 @@
 <template>
   <div>
     <el-divider></el-divider>
-    <div
-      style="display: flex; justify-content: space-between; margin-right: 10vw"
-    >
-      <div style="width: 27vw">
+    <div style="margin-left: 20vw">
+      <el-upload
+        class="upload-demo"
+        ref="upload"
+        drag
+        action="http://localhost:8001/uploadsingle/"
+        :on-success="handleSuccess"
+        accept=".dcm"
+        :data="form"
+        :auto-upload="false"
+        :limit="1"
+      >
+        <i class="el-icon-upload"></i>
+        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+        <div class="el-upload__tip" slot="tip">只能上传*.dcm文件</div>
+      </el-upload>
+      <div style="margin-top: 15px; width: 20vw">
         <el-form ref="form" :model="form" label-width="80px">
-          <el-form-item label="姓名">
-            <el-input v-model="form.lastName"></el-input>
-          </el-form-item>
+          <!-- <el-form-item label="姓名">
+            <el-input v-model="form.name"></el-input>
+          </el-form-item> -->
           <el-form-item label="性别">
             <el-radio-group v-model="form.gender">
               <el-radio label="男"></el-radio>
@@ -20,44 +33,53 @@
           </el-form-item>
         </el-form>
       </div>
-
-      <el-divider direction="vertical"></el-divider>
-      <el-upload
-        class="upload-demo"
-        ref="upload"
-        drag
-        action="https://jsonplaceholder.typicode.com/posts/"
-        accept=".dcm"
-        :auto-upload="false"
-        :limit="1"
-      >
-        <i class="el-icon-upload"></i>
-        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-        <div class="el-upload__tip" slot="tip">只能上传*.dcm文件</div>
-      </el-upload>
+      <!-- <el-divider direction="vertical"></el-divider> -->
     </div>
     <div style="width: 40vw; margin-left: 25vw; margin-top: 10vh">
       <el-button type="primary" @click="onSubmit">立即上传</el-button>
-      <el-button>取消</el-button>
+      <el-button @click="goBack">返回</el-button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  inject: ["reload"],
   name: "SingleUpload",
   data() {
     return {
       form: {
-        lastName: "",
+        name: "",
         gender: "",
         age: "",
+        position: "胰腺",
       },
     };
   },
   methods: {
     onSubmit() {
+      if (this.$refs.upload.uploadFiles.length == 0) {
+        console.log("文件列表为空");
+        this.$message({
+          showClose: true,
+          message: "文件列表为空",
+          duration: 1000,
+          type: "error",
+        });
+        return;
+      }
       this.$refs.upload.submit();
+    },
+    handleSuccess() {
+      this.$alert("上传成功！", "提示", {
+        confirmButtonText: "确定",
+        callback: () => {
+          this.reload(); //刷新页面
+        },
+      });
+    },
+    goBack() {
+      this.$router.back();
     },
   },
 };
@@ -65,6 +87,6 @@ export default {
 
 <style scoped>
 .el-divider--vertical {
-  height: 35vh;
+  height: 30vh;
 }
 </style>

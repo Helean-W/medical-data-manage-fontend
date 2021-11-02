@@ -3,7 +3,11 @@
     <el-header style="padding: 5px">
       <el-menu
         router
-        default-active="/pancreas/datacollection"
+        :default-active="
+          this.$route.path.split('/')[2] == 'datacollection'
+            ? '/pancreas/datacollection/singleupload'
+            : this.$route.path
+        "
         class="el-menu-demo"
         mode="horizontal"
         background-color="#545c64"
@@ -15,7 +19,7 @@
         >
         <el-menu-item
           style="padding-left: 40px; padding-right: 40px"
-          index="/pancreas/datacollection"
+          index="/pancreas/datacollection/singleupload"
           >数据录入与下载
         </el-menu-item>
         <el-menu-item
@@ -25,7 +29,7 @@
         >
         <el-menu-item
           style="padding-left: 40px; padding-right: 40px"
-          index="/pancreas/datastatic"
+          index="/datastatic"
           >数据统计</el-menu-item
         >
       </el-menu>
@@ -33,7 +37,15 @@
     <el-main style="padding: 5px">
       <router-view></router-view>
     </el-main>
-    <el-footer style="padding: 0; background-color: #dcdfe6">
+    <el-footer
+      style="
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        padding: 0;
+        background-color: #dcdfe6;
+      "
+    >
       <h1>胰腺数据管理系统</h1>
     </el-footer>
   </el-container>
@@ -43,15 +55,9 @@
 export default {
   name: "PancreasData",
   data() {
-    return {
-      activeIndex: "2",
-    };
+    return {};
   },
-  methods: {
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
-    },
-  },
+  methods: {},
 };
 </script>
 <style scoped>

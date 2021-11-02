@@ -6,8 +6,10 @@
       class="upload-demo"
       ref="upload"
       drag
-      action="https://jsonplaceholder.typicode.com/posts/"
+      action="http://localhost:8001/uploadzip/"
+      :on-success="handleSuccess"
       accept=".zip"
+      :data="{ position: '胰腺' }"
       :auto-upload="false"
       :limit="1"
     >
@@ -18,20 +20,42 @@
 
     <div style="width: 40vw; margin-left: 25vw; margin-top: 10vh">
       <el-button type="primary" @click="onSubmit">立即上传</el-button>
-      <el-button>取消</el-button>
+      <el-button @click="goBack">返回</el-button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  inject: ["reload"],
   name: "MultiUpload",
   data() {
     return {};
   },
   methods: {
     onSubmit() {
+      if (this.$refs.upload.uploadFiles.length == 0) {
+        console.log("文件列表为空");
+        this.$message({
+          showClose: true,
+          message: "文件列表为空",
+          duration: 1000,
+          type: "error",
+        });
+        return;
+      }
       this.$refs.upload.submit();
+    },
+    handleSuccess() {
+      this.$alert("上传成功！", "提示", {
+        confirmButtonText: "确定",
+        callback: () => {
+          this.reload(); //刷新页面
+        },
+      });
+    },
+    goBack() {
+      this.$router.back();
     },
   },
 };

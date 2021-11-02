@@ -24,7 +24,7 @@
               >批量导入</el-menu-item
             >
           </el-submenu>
-          <el-menu-item index="2">
+          <el-menu-item index="/pancreas/datacollection/download">
             <i class="el-icon-download"></i>
             <span slot="title">下载数据</span>
           </el-menu-item>
