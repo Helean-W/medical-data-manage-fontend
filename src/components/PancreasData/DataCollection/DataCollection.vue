@@ -1,12 +1,10 @@
 <template>
   <div>
     <el-container>
-      <el-aside>
+      <el-aside style="width: 220px">
         <el-menu
           router
           class="el-menu-vertical-demo"
-          @open="handleOpen"
-          @close="handleClose"
           :default-active="this.$route.path"
           background-color="#545c64"
           text-color="#fff"
@@ -39,14 +37,6 @@
 <script>
 export default {
   name: "DataCollection",
-  methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
-    },
-  },
 };
 </script>
 

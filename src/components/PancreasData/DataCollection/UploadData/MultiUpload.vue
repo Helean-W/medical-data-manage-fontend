@@ -2,7 +2,7 @@
   <div>
     <el-divider></el-divider>
     <el-upload
-      style="margin-left: 20vw"
+      style="margin-left: 23vw"
       class="upload-demo"
       ref="upload"
       drag
@@ -18,7 +18,7 @@
       <div class="el-upload__tip" slot="tip">只能上传dicom格式的*.zip文件</div>
     </el-upload>
 
-    <div style="width: 40vw; margin-left: 25vw; margin-top: 10vh">
+    <div style="width: 40vw; margin-left: 28vw; margin-top: 10vh">
       <el-button type="primary" @click="onSubmit">立即上传</el-button>
       <el-button @click="goBack">返回</el-button>
     </div>

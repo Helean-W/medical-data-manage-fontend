@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-divider></el-divider>
-    <div style="margin-left: 20vw">
+    <div style="margin-left: 23vw">
       <el-upload
         class="upload-demo"
         ref="upload"
@@ -35,7 +35,7 @@
       </div>
       <!-- <el-divider direction="vertical"></el-divider> -->
     </div>
-    <div style="width: 40vw; margin-left: 25vw; margin-top: 10vh">
+    <div style="width: 40vw; margin-left: 28vw; margin-top: 10vh">
       <el-button type="primary" @click="onSubmit">立即上传</el-button>
       <el-button @click="goBack">返回</el-button>
     </div>

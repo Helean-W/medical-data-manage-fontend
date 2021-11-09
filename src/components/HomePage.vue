@@ -23,12 +23,12 @@
               多维医疗影像数据管理系统
             </h1></el-col
           >
-          <el-col :span="4" class="login">
+          <!-- <el-col :span="4" class="login">
             <nav style="position: absolute; right: 3%">
               <a href="">注册</a> |
               <router-link :to="{ name: 'login' }">登陆</router-link>
             </nav>
-          </el-col>
+          </el-col> -->
         </el-row>
       </el-header>
       <el-main>
@@ -40,23 +40,19 @@
             <el-carousel-item style="height: 400px">
               <div style="height: 100%; width: 100%; cursor: pointer">
                 <img
-                  src="../assets/imgs/a.png"
+                  src="../assets/imgs/bg.png"
                   alt=""
                   style="height: 100%; width: 100%; margin: 0"
                 />
               </div>
             </el-carousel-item>
-            <el-carousel-item
-              style="height: 400px"
-              v-for="item in showPic"
-              :key="item.index"
-              name="nihao"
-            >
-              <div
-                style="height: 100%; width: 100%; cursor: pointer"
-                @click="change(item)"
-              >
-                <h2>{{ item.name }}</h2>
+            <el-carousel-item style="height: 400px">
+              <div style="height: 100%; width: 100%; cursor: pointer">
+                <img
+                  src="../assets/imgs/a.png"
+                  alt=""
+                  style="height: 100%; width: 100%; margin: 0"
+                />
               </div>
             </el-carousel-item>
           </el-carousel>
@@ -72,21 +68,16 @@
                 <span class="tumorType">{{ data.type }}</span>
               </router-link>
             </li>
-            <!-- <li @click="addTumorType">增加</li> -->
           </ul>
         </div>
 
         <hr color="#808080" />
 
         <div class="item">
-          <ul style="margin-top: 40px">
-            <li
-              v-for="(server, index) in serverType"
-              :key="index"
-              @click="toAICompute"
-            >
+          <ul style="margin-top: 40px; font-size: 1.25rem">
+            <li @click="toAICompute">
               <img src="../assets/imgs/server.png" alt="平台服务" /><br />{{
-                server
+                AI
               }}
             </li>
           </ul>
@@ -108,15 +99,15 @@
 
 <script>
 export default {
-  name: "mainIndex",
+  name: "HomePage",
   data() {
     return {
       tumorType: [
-        {
-          type: "乳腺肿瘤",
-          linkPath: "/data/breast/datacollection",
-          img: require("../assets/imgs/breast.png"),
-        },
+        // {
+        //   type: "乳腺肿瘤",
+        //   linkPath: "/data/breast/datacollection",
+        //   img: require("../assets/imgs/breast.png"),
+        // },
         {
           type: "肺癌",
           linkPath: "/data/lung/datacollection",
@@ -133,38 +124,13 @@ export default {
           img: require("../assets/imgs/pancre.png"),
         },
       ],
-      serverType: ["数据预处理子系统"],
-
-      showPic: [
-        { index: 1, name: "医疗影像数据中心", to: "/" },
-        { index: 2, name: "系统数据可视化", to: "/visual" },
-        { index: 3, name: "数据预处理子系统", to: "/normalize" },
-      ],
+      AI: "AI诊断系统",
     };
   },
   methods: {
-    change(item) {
-      if (item.index > 0) {
-        let path = this.showPic.filter((data) => {
-          return item.index === data.index;
-        });
-
-        this.$router.push(path[0]["to"]);
-      }
-    },
     toAICompute() {
       this.$router.push({ path: "/AICompute" });
     },
-    toAnaly() {
-      this.$router.push("/allDataAnaly");
-    },
-    /**
-     * 新增一种肿瘤疾病
-     */
-    addTumorType() {},
-  },
-  mounted() {
-    this.$forceUpdate();
   },
 };
 </script>

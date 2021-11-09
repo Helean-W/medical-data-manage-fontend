@@ -24,13 +24,20 @@
       <el-table-column label="影像" prop="url"> </el-table-column>
       <el-table-column align="right">
         <template slot="header" slot-scope="{}">
-          <el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
+          <el-input
+            v-model="search"
+            size="small"
+            placeholder="输入关键字搜索"
+          />
         </template>
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleDCM(scope.$index, scope.row)"
+          <el-button
+            size="mini"
+            @click="handleDCM(scope.$index, scope.row)"
+            style="margin-right: 15px"
             >查看DICOM</el-button
           >
-          <el-dialog :visible.sync="dialogVisible" width="50%">
+          <el-dialog :visible.sync="dialogVisible" width="40%">
             <el-image :src="'data:image/jpeg;base64,' + img_base64"></el-image>
           </el-dialog>
           <el-button
@@ -86,7 +93,7 @@ export default {
     );
     console.log(this.tableData);
   },
-  mounted() {
+  beforeMount() {
     // console.log(window.innerHeight);
     this.tableHeight = window.innerHeight - 150; //表格自适应高度
   },

@@ -6,6 +6,8 @@
         :default-active="
           this.$route.path.split('/')[2] == 'datacollection'
             ? '/pancreas/datacollection/singleupload'
+            : this.$route.path.split('/')[2] == 'datastatic'
+            ? '/pancreas/datastatic/pancreaschart'
             : this.$route.path
         "
         class="el-menu-demo"
@@ -29,7 +31,7 @@
         >
         <el-menu-item
           style="padding-left: 40px; padding-right: 40px"
-          index="/datastatic"
+          index="/pancreas/datastatic/pancreaschart"
           >数据统计</el-menu-item
         >
       </el-menu>
