@@ -109,17 +109,17 @@ export default {
         //   img: require("../assets/imgs/breast.png"),
         // },
         {
-          type: "肺癌",
-          linkPath: "/data/lung/datacollection",
+          type: "肺部",
+          linkPath: "/lungs/datacollection/singleupload",
           img: require("../assets/imgs/lung.jpg"),
         },
         {
-          type: "肝癌",
-          linkPath: "/data/liver/datacollection",
-          img: require("../assets/imgs/liver.jpg"),
+          type: "眼底",
+          linkPath: "/eyes/datacollection/singleupload",
+          img: require("../assets/imgs/eye.png"),
         },
         {
-          type: "胰腺肿瘤",
+          type: "胰腺",
           linkPath: "/pancreas/datacollection/singleupload",
           img: require("../assets/imgs/pancre.png"),
         },

@@ -82,6 +82,9 @@ export default {
             temp["url"] = response.data.ret[i][4];
             this.tableData.push(temp);
           }
+          this.tableData = this.tableData.filter((data) => {
+            return data.position === "胰腺";
+          });
         }
         this.loading = false;
       },

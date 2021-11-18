@@ -33,12 +33,12 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
-            @click="handleDCM(scope.$index, scope.row)"
+            @click="handleImg(scope.$index, scope.row)"
             style="margin-right: 15px"
-            >查看DICOM</el-button
+            >查看影像</el-button
           >
           <el-dialog :visible.sync="dialogVisible" width="40%">
-            <el-image :src="'data:image/jpeg;base64,' + img_base64"></el-image>
+            <el-image :src="'data:image/png;base64,' + img_base64"></el-image>
           </el-dialog>
           <el-button
             size="mini"
@@ -56,10 +56,10 @@ import axios from "axios";
 const baseUrl = "http://localhost:8001/";
 const getAllData = baseUrl + "queryall/";
 const deleteData = baseUrl + "deleteitem/";
-const viewDcm = baseUrl + "viewdcm/";
+const viewImg = baseUrl + "viewpng/";
 export default {
   inject: ["reload"], //删除表项的时候可以刷新此组件
-  name: "DataManage",
+  name: "LungsDataManage",
   data() {
     return {
       tableHeight: null,
@@ -85,7 +85,7 @@ export default {
             this.tableData.push(temp);
           }
           this.tableData = this.tableData.filter((data) => {
-            return data.position === "胰腺";
+            return data.position === "肺部";
           });
         }
         this.loading = false;
@@ -101,9 +101,9 @@ export default {
     this.tableHeight = window.innerHeight - 150; //表格自适应高度
   },
   methods: {
-    handleDCM(index, row) {
+    handleImg(index, row) {
       axios
-        .get(viewDcm, {
+        .get(viewImg, {
           params: {
             url: row.url,
           },

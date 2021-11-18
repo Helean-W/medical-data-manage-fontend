@@ -8,14 +8,14 @@
         drag
         action="http://localhost:8001/uploadsingle/"
         :on-success="handleSuccess"
-        accept=".dcm"
+        accept="image/jpg, image/jpeg"
         :data="form"
         :auto-upload="false"
         :limit="1"
       >
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-        <div class="el-upload__tip" slot="tip">只能上传*.dcm文件</div>
+        <div class="el-upload__tip" slot="tip">只能上传*.jpg或*.jpeg文件</div>
       </el-upload>
       <div style="margin-top: 15px; width: 15vw">
         <el-form ref="form" :model="form" label-width="80px">
@@ -45,14 +45,14 @@
 <script>
 export default {
   inject: ["reload"],
-  name: "SingleUpload",
+  name: "EyesSingleUpload",
   data() {
     return {
       form: {
         name: "",
         gender: "",
         age: "",
-        position: "胰腺",
+        position: "眼底",
       },
     };
   },

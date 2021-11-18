@@ -7,7 +7,7 @@ import axios from "axios";
 const baseUrl = "http://localhost:8001/";
 const getAllData = baseUrl + "queryall/";
 export default {
-  name: "AllChart",
+  name: "EyesAllChart",
   data() {
     return {
       allData: [],
@@ -26,7 +26,7 @@ export default {
           orient: "vertical",
           left: "left",
           top: "10%",
-          data: ["胰腺", "肺部", "眼底", "不详"],
+          data: ["胰腺", "脑部", "眼底", "不详"],
         },
         series: [
           {
@@ -36,7 +36,7 @@ export default {
             center: ["50%", "60%"],
             data: [
               { value: null, name: "胰腺" },
-              { value: null, name: "肺部" },
+              { value: null, name: "脑部" },
               { value: null, name: "眼底" },
               { value: null, name: "不详" },
             ],
@@ -73,7 +73,7 @@ export default {
           return data.position === "胰腺";
         }).length;
         this.positionDis[1] = this.allData.filter((data) => {
-          return data.position === "肺部";
+          return data.position === "脑部";
         }).length;
         this.positionDis[2] = this.allData.filter((data) => {
           return data.position === "眼底";

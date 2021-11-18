@@ -7,7 +7,7 @@ import axios from "axios";
 const baseUrl = "http://localhost:8001/";
 const getAllData = baseUrl + "queryall/";
 export default {
-  name: "AllChart",
+  name: "LungsAllChart",
   data() {
     return {
       allData: [],

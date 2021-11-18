@@ -7,15 +7,15 @@ import axios from "axios";
 const baseUrl = "http://localhost:8001/";
 const getAllData = baseUrl + "queryall/";
 export default {
-  name: "AllChart",
+  name: "LungsChart",
   data() {
     return {
       allData: [],
-      positionDis: [],
+      genderDis: [],
 
       option: {
         title: {
-          text: "所有病例影像部位分布",
+          text: "肺部病例分布",
           left: "center",
         },
         tooltip: {
@@ -26,18 +26,17 @@ export default {
           orient: "vertical",
           left: "left",
           top: "10%",
-          data: ["胰腺", "肺部", "眼底", "不详"],
+          data: ["男", "女", "不详"],
         },
         series: [
           {
-            name: "影像部位",
+            name: "病人性别",
             type: "pie",
             radius: ["40%", "70%"],
             center: ["50%", "60%"],
             data: [
-              { value: null, name: "胰腺" },
-              { value: null, name: "肺部" },
-              { value: null, name: "眼底" },
+              { value: null, name: "男" },
+              { value: null, name: "女" },
               { value: null, name: "不详" },
             ],
             emphasis: {
@@ -69,25 +68,21 @@ export default {
         }
         this.loading = false;
 
-        this.positionDis[0] = this.allData.filter((data) => {
-          return data.position === "胰腺";
+        this.genderDis[0] = this.allData.filter((data) => {
+          return data.position === "肺部" && data.gender === "男";
         }).length;
-        this.positionDis[1] = this.allData.filter((data) => {
-          return data.position === "肺部";
+        this.genderDis[1] = this.allData.filter((data) => {
+          return data.position === "肺部" && data.gender === "女";
         }).length;
-        this.positionDis[2] = this.allData.filter((data) => {
-          return data.position === "眼底";
-        }).length;
-        this.positionDis[3] =
-          this.allData.length -
-          this.positionDis[0] -
-          this.positionDis[1] -
-          this.positionDis[2];
-
-        this.option.series[0].data[0]["value"] = this.positionDis[0];
-        this.option.series[0].data[1]["value"] = this.positionDis[1];
-        this.option.series[0].data[2]["value"] = this.positionDis[2];
-        this.option.series[0].data[3]["value"] = this.positionDis[3];
+        this.genderDis[2] =
+          this.allData.filter((data) => {
+            return data.position === "肺部";
+          }).length -
+          this.genderDis[0] -
+          this.genderDis[1];
+        this.option.series[0].data[0]["value"] = this.genderDis[0];
+        this.option.series[0].data[1]["value"] = this.genderDis[1];
+        this.option.series[0].data[2]["value"] = this.genderDis[2];
       },
       (error) => {
         console.log("获取失败", error.message);

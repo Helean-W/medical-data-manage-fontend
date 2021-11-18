@@ -1,6 +1,7 @@
 <template>
   <div>
     <el-table
+      ref="multipleTable"
       :data="
         tableData.filter(
           (data) =>
@@ -14,10 +15,11 @@
       stripe
       v-loading="loading"
       :max-height="tableHeight"
+      @selection-change="handleSelectionChange"
       style="width: 100%"
     >
+      <el-table-column type="selection" width="55"> </el-table-column>
       <el-table-column label="id" prop="id"> </el-table-column>
-      <!-- <el-table-column label="姓名" prop="name"> </el-table-column> -->
       <el-table-column label="性别" prop="gender"> </el-table-column>
       <el-table-column label="年龄" prop="age"> </el-table-column>
       <el-table-column label="部位" prop="position"> </el-table-column>
@@ -31,35 +33,30 @@
           />
         </template>
         <template slot-scope="scope">
-          <el-button
-            size="mini"
-            @click="handleDCM(scope.$index, scope.row)"
-            style="margin-right: 15px"
-            >查看DICOM</el-button
+          <el-button size="mini" @click="handleImg(scope.$index, scope.row)"
+            >查看影像</el-button
           >
-          <el-dialog :visible.sync="dialogVisible" width="40%">
+          <el-dialog :visible.sync="dialogVisible" width="50%">
             <el-image :src="'data:image/jpeg;base64,' + img_base64"></el-image>
           </el-dialog>
-          <el-button
-            size="mini"
-            type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
-            >删除</el-button
-          >
         </template>
       </el-table-column>
     </el-table>
+    <div style="margin-top: 7vh; margin-left: 30vw">
+      <el-button type="primary" size="medium" @click="handleDownload"
+        >下载选中记录</el-button
+      >
+    </div>
   </div>
 </template>
 <script>
 import axios from "axios";
 const baseUrl = "http://localhost:8001/";
 const getAllData = baseUrl + "queryall/";
-const deleteData = baseUrl + "deleteitem/";
-const viewDcm = baseUrl + "viewdcm/";
+const viewImg = baseUrl + "viewjpg/";
 export default {
-  inject: ["reload"], //删除表项的时候可以刷新此组件
-  name: "DataManage",
+  inject: ["reload"],
+  name: "EyesDownload",
   data() {
     return {
       tableHeight: null,
@@ -68,6 +65,7 @@ export default {
       loading: true,
       img_base64: "",
       dialogVisible: false,
+      multipleSelection: [],
     };
   },
   created() {
@@ -85,7 +83,7 @@ export default {
             this.tableData.push(temp);
           }
           this.tableData = this.tableData.filter((data) => {
-            return data.position === "胰腺";
+            return data.position === "眼底";
           });
         }
         this.loading = false;
@@ -98,12 +96,12 @@ export default {
   },
   beforeMount() {
     // console.log(window.innerHeight);
-    this.tableHeight = window.innerHeight - 150; //表格自适应高度
+    this.tableHeight = window.innerHeight - 250; //表格自适应高度
   },
   methods: {
-    handleDCM(index, row) {
+    handleImg(index, row) {
       axios
-        .get(viewDcm, {
+        .get(viewImg, {
           params: {
             url: row.url,
           },
@@ -119,22 +117,38 @@ export default {
         );
       console.log(index, row);
     },
-    handleDelete(index, row) {
-      axios
-        .get(deleteData, {
-          params: {
-            id: row.id,
-          },
-        })
-        .then(
-          (response) => {
-            console.log("结果", response.data);
-            this.reload();
-          },
-          (error) => {
-            console.log("失败", error.message);
-          }
-        );
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+      console.log(this.multipleSelection);
+    },
+    handleDownload() {
+      if (this.multipleSelection.length == 0) {
+        this.$message({
+          showClose: true,
+          message: "未选中任何项！",
+          duration: 1000,
+          type: "error",
+        });
+        return;
+      }
+      this.multipleSelection.forEach((item) => {
+        let name =
+          item["id"] +
+          "_" +
+          item["position"] +
+          "_" +
+          item["gender"] +
+          "_" +
+          item["age"] +
+          "岁" +
+          ".jpg";
+        let a = document.createElement("a");
+        a.href = item["url"].split("http://127.0.0.1:8000")[1]; //download命名文件只有不跨域的时候才有效，所以应该提取url中的/resources/xxxxxx.dcm部分
+        console.log(a.href);
+        a.download = name;
+        a.click();
+      });
+      this.reload();
     },
   },
 };
