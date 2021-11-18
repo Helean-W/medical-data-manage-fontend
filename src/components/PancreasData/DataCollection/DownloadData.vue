@@ -143,7 +143,8 @@ export default {
           "岁" +
           ".dcm";
         let a = document.createElement("a");
-        a.href = item["url"].split("http://127.0.0.1:8000")[1]; //download命名文件只有不跨域的时候才有效，所以应该提取url中的/resources/xxxxxx.dcm部分
+        // a.href = item["url"].split("http://127.0.0.1:8000")[1]; //download命名文件只有不跨域的时候才有效，所以应该提取url中的/resources/xxxxxx.dcm部分
+        a.href = item["url"].replace("8001", "8002");
         console.log(a.href);
         a.download = name;
         a.click();
