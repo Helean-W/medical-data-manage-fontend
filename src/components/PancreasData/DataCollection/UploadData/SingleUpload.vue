@@ -6,7 +6,7 @@
         class="upload-demo"
         ref="upload"
         drag
-        action="http://localhost:8001/uploadsingle/"
+        action="http://122.144.180.37:8001/uploadsingle/"
         :on-success="handleSuccess"
         accept=".dcm"
         :data="form"

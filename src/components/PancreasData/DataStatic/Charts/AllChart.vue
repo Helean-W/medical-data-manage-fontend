@@ -4,7 +4,7 @@
 
 <script>
 import axios from "axios";
-const baseUrl = "http://localhost:8001/";
+const baseUrl = "http://122.144.180.37:8001/";
 const getAllData = baseUrl + "queryall/";
 export default {
   name: "AllChart",

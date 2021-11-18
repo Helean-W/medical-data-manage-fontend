@@ -6,7 +6,7 @@
       class="upload-demo"
       ref="upload"
       drag
-      action="http://localhost:8001/uploadzip/"
+      action="http://122.144.180.37:8001/uploadzip/"
       :on-success="handleSuccess"
       accept=".zip"
       :data="{ position: '肺部' }"
