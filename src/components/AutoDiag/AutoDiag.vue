@@ -4,11 +4,9 @@
       <el-menu
         router
         :default-active="
-          this.$route.path.split('/')[2] == 'datacollection'
-            ? '/eyes/datacollection/singleupload'
-            : this.$route.path.split('/')[2] == 'datastatic'
-            ? '/eyes/datastatic/eyeschart'
-            : this.$route.path
+          this.$route.path.split('/')[2] == 'gradeye'
+            ? '/autodiag/gradeye/upload'
+            : '/autodiag/segcov19/upload'
         "
         class="el-menu-demo"
         mode="horizontal"
@@ -21,33 +19,28 @@
         >
         <el-menu-item
           style="padding-left: 40px; padding-right: 40px"
-          index="/eyes/datacollection/singleupload"
-          >数据录入与下载
+          index="/autodiag/gradeye/upload"
+          >糖尿病视网膜病变检测</el-menu-item
+        >
+        <el-menu-item
+          style="padding-left: 40px; padding-right: 40px"
+          index="/autodiag/segcov19/upload"
+          >COVID-19病灶分割
         </el-menu-item>
-        <el-menu-item
-          style="padding-left: 40px; padding-right: 40px"
-          index="/eyes/datamanage"
-          >数据管理</el-menu-item
-        >
-        <el-menu-item
-          style="padding-left: 40px; padding-right: 40px"
-          index="/eyes/datastatic/eyeschart"
-          >数据统计</el-menu-item
-        >
       </el-menu>
     </el-header>
     <el-main style="height: 83vh; padding: 5px">
       <router-view></router-view>
     </el-main>
     <el-footer style="text-align: center; background-color: #dcdfe6">
-      <h1>眼底数据管理系统</h1>
+      <h1>AI诊断系统</h1>
     </el-footer>
   </el-container>
 </template>
 
 <script>
 export default {
-  name: "EyesData",
+  name: "AutoDiag",
   data() {
     return {};
   },

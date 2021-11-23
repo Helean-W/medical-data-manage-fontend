@@ -8,14 +8,15 @@
         drag
         action="http://122.144.180.37:8001/uploadsingle/"
         :on-success="handleSuccess"
-        accept="image/png"
+        :on-error="handleError"
+        accept="image/jpg"
         :data="form"
         :auto-upload="false"
         :limit="1"
       >
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-        <div class="el-upload__tip" slot="tip">只能上传*.png文件</div>
+        <div class="el-upload__tip" slot="tip">只能上传*.jpg文件</div>
       </el-upload>
       <div style="margin-top: 15px; width: 15vw">
         <el-form ref="form" :model="form" label-width="80px">
@@ -72,6 +73,14 @@ export default {
     },
     handleSuccess() {
       this.$alert("上传成功！", "提示", {
+        confirmButtonText: "确定",
+        callback: () => {
+          this.reload(); //刷新页面
+        },
+      });
+    },
+    handleError() {
+      this.$alert("上传失败！", "提示", {
         confirmButtonText: "确定",
         callback: () => {
           this.reload(); //刷新页面

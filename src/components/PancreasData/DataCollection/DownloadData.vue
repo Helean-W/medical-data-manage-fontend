@@ -36,7 +36,7 @@
           <el-button size="mini" @click="handleDCM(scope.$index, scope.row)"
             >查看DICOM</el-button
           >
-          <el-dialog :visible.sync="dialogVisible" width="50%">
+          <el-dialog :visible.sync="dialogVisible" width="35%">
             <el-image :src="'data:image/jpeg;base64,' + img_base64"></el-image>
           </el-dialog>
         </template>

@@ -75,10 +75,13 @@
 
         <div class="item">
           <ul style="margin-top: 40px; font-size: 1.25rem">
-            <li @click="toAICompute">
-              <img src="../assets/imgs/server.png" alt="平台服务" /><br />{{
-                AI
-              }}
+            <li>
+              <router-link :to="{ path: '/autodiag/gradeye/upload' }">
+                <img src="../assets/imgs/server.png" alt="AI诊断系统" />
+                <br />
+                <br />
+                <span class="tumorType">AI诊断系统</span>
+              </router-link>
             </li>
           </ul>
         </div>
@@ -103,11 +106,6 @@ export default {
   data() {
     return {
       tumorType: [
-        // {
-        //   type: "乳腺肿瘤",
-        //   linkPath: "/data/breast/datacollection",
-        //   img: require("../assets/imgs/breast.png"),
-        // },
         {
           type: "肺部",
           linkPath: "/lungs/datacollection/singleupload",
@@ -124,13 +122,7 @@ export default {
           img: require("../assets/imgs/pancre.png"),
         },
       ],
-      AI: "AI诊断系统",
     };
-  },
-  methods: {
-    toAICompute() {
-      this.$router.push({ path: "/AICompute" });
-    },
   },
 };
 </script>

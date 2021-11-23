@@ -1,6 +1,12 @@
 <template>
-  <div style="height: 80%">
+  <div
+    v-loading="diagLoading"
+    element-loading-text="算法运行中"
+    element-loading-spinner="el-icon-loading"
+    element-loading-background="rgba(0, 0, 0, 0.8)"
+  >
     <el-table
+      ref="multipleTable"
       :data="
         tableData.filter(
           (data) =>
@@ -17,7 +23,6 @@
       style="width: 100%"
     >
       <el-table-column label="id" prop="id"> </el-table-column>
-      <!-- <el-table-column label="姓名" prop="name"> </el-table-column> -->
       <el-table-column label="性别" prop="gender"> </el-table-column>
       <el-table-column label="年龄" prop="age"> </el-table-column>
       <el-table-column label="部位" prop="position"> </el-table-column>
@@ -33,19 +38,35 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
-            @click="handleImg(scope.$index, scope.row)"
             style="margin-right: 15px"
+            @click="handleImg(scope.$index, scope.row)"
             >查看影像</el-button
           >
-          <el-dialog :visible.sync="dialogVisible" width="40%">
+          <el-dialog :visible.sync="dialogVisible" width="35%">
             <el-image :src="'data:image/jpeg;base64,' + img_base64"></el-image>
           </el-dialog>
           <el-button
             size="mini"
-            type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
-            >删除</el-button
+            type="primary"
+            style="margin-right: 15px"
+            @click="handleDiagnosis(scope.$index, scope.row)"
+            >自动诊断</el-button
           >
+          <el-dialog :visible.sync="dialogVisible2" width="30%" center>
+            <el-card class="box-card">
+              <div slot="header" class="clearfix">
+                <span style="font-size: 25px">诊断结果</span>
+              </div>
+              <div class="text item" style="font-size: 23px; font-weight: bold">
+                糖网病等级为: {{ diagnosticResult }}
+              </div>
+            </el-card>
+            <span slot="footer" class="dialog-footer">
+              <el-button type="primary" @click="dialogVisible2 = false"
+                >确 定</el-button
+              >
+            </span>
+          </el-dialog>
         </template>
       </el-table-column>
     </el-table>
@@ -55,19 +76,22 @@
 import axios from "axios";
 const baseUrl = "http://122.144.180.37:8001/";
 const getAllData = baseUrl + "queryall/";
-const deleteData = baseUrl + "deleteitem/";
 const viewImg = baseUrl + "viewjpg/";
+const diagImg = baseUrl + "gradexist/";
 export default {
-  inject: ["reload"], //删除表项的时候可以刷新此组件
-  name: "EyesDataManage",
+  inject: ["reload"],
+  name: "SelectEye",
   data() {
     return {
+      diagLoading: false,
       tableHeight: null,
       tableData: [],
       search: "",
       loading: true,
       img_base64: "",
       dialogVisible: false,
+      dialogVisible2: false,
+      diagnosticResult: "",
     };
   },
   created() {
@@ -98,7 +122,7 @@ export default {
   },
   beforeMount() {
     // console.log(window.innerHeight);
-    this.tableHeight = window.innerHeight - 150; //表格自适应高度
+    this.tableHeight = window.innerHeight - 250; //表格自适应高度
   },
   methods: {
     handleImg(index, row) {
@@ -119,9 +143,10 @@ export default {
         );
       console.log(index, row);
     },
-    handleDelete(index, row) {
+    handleDiagnosis(index, row) {
+      this.diagLoading = true;
       axios
-        .get(deleteData, {
+        .get(diagImg, {
           params: {
             id: row.id,
           },
@@ -129,12 +154,32 @@ export default {
         .then(
           (response) => {
             console.log("结果", response.data);
-            this.reload();
+            switch (response.data.data) {
+              case "0":
+                this.diagnosticResult = "等级0-无病";
+                break;
+              case "1":
+                this.diagnosticResult = "等级1-轻度糖网病";
+                break;
+              case "2":
+                this.diagnosticResult = "等级2-中度糖网病";
+                break;
+              case "3":
+                this.diagnosticResult = "等级3-重度糖网病";
+                break;
+              case "4":
+                this.diagnosticResult = "等级4-增殖期糖网病";
+                break;
+            }
+            this.diagLoading = false;
+            this.dialogVisible2 = true;
           },
           (error) => {
             console.log("失败", error.message);
+            this.diagLoading = false;
           }
         );
+      console.log(index, row);
     },
   },
 };

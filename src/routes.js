@@ -31,6 +31,14 @@ import LungsDataStatic from './components/LungsData/DataStatic/DataStatic'
 import LungsChart from './components/LungsData/DataStatic/Charts/LungsChart'
 import LungsAllChart from './components/LungsData/DataStatic/Charts/AllChart'
 
+import AutoDiag from './components/AutoDiag/AutoDiag'
+import GradEye from './components/AutoDiag/GradEye/GradEye'
+import UploadEye from './components/AutoDiag/GradEye/GetImage/Upload'
+import SelectEye from './components/AutoDiag/GradEye/GetImage/Select'
+import SegCOV19 from './components/AutoDiag/SegCOV19/SegCOV19'
+import UploadLung from './components/AutoDiag/SegCOV19/GetImage/Upload'
+import SelectLung from './components/AutoDiag/SegCOV19/GetImage/Select'
+
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -38,6 +46,14 @@ const router = new VueRouter({
         {
             path: "/",
             component: HomePage
+        },
+        {
+            path: '/autodiag',
+            component: AutoDiag,
+            children: [
+                { path: 'gradeye', component: GradEye, children: [{ path: 'upload', component: UploadEye }, { path: 'select', component: SelectEye }] },
+                { path: 'segcov19', component: SegCOV19, children: [{ path: 'upload', component: UploadLung }, { path: 'select', component: SelectLung }] },
+            ]
         },
         {
             path: '/pancreas',

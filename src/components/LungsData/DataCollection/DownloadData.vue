@@ -36,8 +36,8 @@
           <el-button size="mini" @click="handleImg(scope.$index, scope.row)"
             >查看影像</el-button
           >
-          <el-dialog :visible.sync="dialogVisible" width="50%">
-            <el-image :src="'data:image/png;base64,' + img_base64"></el-image>
+          <el-dialog :visible.sync="dialogVisible" width="35%">
+            <el-image :src="'data:image/jpeg;base64,' + img_base64"></el-image>
           </el-dialog>
         </template>
       </el-table-column>
@@ -53,7 +53,7 @@
 import axios from "axios";
 const baseUrl = "http://122.144.180.37:8001/";
 const getAllData = baseUrl + "queryall/";
-const viewImg = baseUrl + "viewpng/";
+const viewImg = baseUrl + "viewjpg/";
 export default {
   inject: ["reload"],
   name: "LungsDownload",
@@ -141,7 +141,7 @@ export default {
           "_" +
           item["age"] +
           "岁" +
-          ".png";
+          ".jpg";
         let a = document.createElement("a");
         // a.href = item["url"].split("http://127.0.0.1:8000")[1]; //download命名文件只有不跨域的时候才有效，所以应该提取url中的/resources/xxxxxx.dcm部分
         a.href = item["url"].replace("8001", "8002");

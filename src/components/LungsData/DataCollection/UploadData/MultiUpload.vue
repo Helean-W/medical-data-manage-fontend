@@ -8,6 +8,7 @@
       drag
       action="http://122.144.180.37:8001/uploadzip/"
       :on-success="handleSuccess"
+      :on-error="handleError"
       accept=".zip"
       :data="{ position: '肺部' }"
       :auto-upload="false"
@@ -15,7 +16,7 @@
     >
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-      <div class="el-upload__tip" slot="tip">只能上传png格式的*.zip文件</div>
+      <div class="el-upload__tip" slot="tip">只能上传jpg格式的*.zip文件</div>
     </el-upload>
 
     <div style="width: 40vw; margin-left: 28vw; margin-top: 10vh">
@@ -48,6 +49,14 @@ export default {
     },
     handleSuccess() {
       this.$alert("上传成功！", "提示", {
+        confirmButtonText: "确定",
+        callback: () => {
+          this.reload(); //刷新页面
+        },
+      });
+    },
+    handleError() {
+      this.$alert("上传失败！", "提示", {
         confirmButtonText: "确定",
         callback: () => {
           this.reload(); //刷新页面

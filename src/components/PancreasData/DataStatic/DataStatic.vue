@@ -11,11 +11,11 @@
           active-text-color="#ffd04b"
         >
           <el-menu-item index="/pancreas/datastatic/pancreaschart">
-            <i class="el-icon-download"></i>
+            <i class="el-icon-monitor"></i>
             <span slot="title">胰腺数据</span>
           </el-menu-item>
           <el-menu-item index="/pancreas/datastatic/allchart">
-            <i class="el-icon-download"></i>
+            <i class="el-icon-monitor"></i>
             <span slot="title">所有数据</span>
           </el-menu-item>
         </el-menu>

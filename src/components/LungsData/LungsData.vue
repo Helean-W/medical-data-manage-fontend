@@ -36,18 +36,10 @@
         >
       </el-menu>
     </el-header>
-    <el-main style="padding: 5px">
+    <el-main style="height: 83vh; padding: 5px">
       <router-view></router-view>
     </el-main>
-    <el-footer
-      style="
-        width: 100%;
-        position: fixed;
-        bottom: 0;
-        padding: 0;
-        background-color: #dcdfe6;
-      "
-    >
+    <el-footer style="text-align: center; background-color: #dcdfe6">
       <h1>肺部数据管理系统</h1>
     </el-footer>
   </el-container>
@@ -62,8 +54,3 @@ export default {
   methods: {},
 };
 </script>
-<style scoped>
-h1 {
-  text-align: center;
-}
-</style>

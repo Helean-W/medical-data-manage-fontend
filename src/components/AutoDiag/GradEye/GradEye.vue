@@ -10,13 +10,13 @@
           text-color="#fff"
           active-text-color="#ffd04b"
         >
-          <el-menu-item index="/eyes/datastatic/eyeschart">
-            <i class="el-icon-monitor"></i>
-            <span slot="title">眼底数据</span>
+          <el-menu-item index="/autodiag/gradeye/upload">
+            <i class="el-icon-upload"></i>
+            <span slot="title">上传影像</span>
           </el-menu-item>
-          <el-menu-item index="/eyes/datastatic/allchart">
-            <i class="el-icon-monitor"></i>
-            <span slot="title">所有数据</span>
+          <el-menu-item index="/autodiag/gradeye/select">
+            <i class="el-icon-search"></i>
+            <span slot="title">选择影像</span>
           </el-menu-item>
         </el-menu>
       </el-aside>
@@ -26,7 +26,7 @@
 </template>
 <script>
 export default {
-  name: "EyesDataStatic",
+  name: "GradEye",
   data() {
     return {};
   },

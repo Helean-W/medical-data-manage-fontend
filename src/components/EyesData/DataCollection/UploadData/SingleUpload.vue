@@ -8,6 +8,7 @@
         drag
         action="http://122.144.180.37:8001/uploadsingle/"
         :on-success="handleSuccess"
+        :on-error="handleError"
         accept="image/jpg, image/jpeg"
         :data="form"
         :auto-upload="false"
@@ -72,6 +73,14 @@ export default {
     },
     handleSuccess() {
       this.$alert("上传成功！", "提示", {
+        confirmButtonText: "确定",
+        callback: () => {
+          this.reload(); //刷新页面
+        },
+      });
+    },
+    handleError() {
+      this.$alert("上传失败！", "提示", {
         confirmButtonText: "确定",
         callback: () => {
           this.reload(); //刷新页面

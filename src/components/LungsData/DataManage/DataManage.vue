@@ -38,7 +38,7 @@
             >查看影像</el-button
           >
           <el-dialog :visible.sync="dialogVisible" width="40%">
-            <el-image :src="'data:image/png;base64,' + img_base64"></el-image>
+            <el-image :src="'data:image/jpeg;base64,' + img_base64"></el-image>
           </el-dialog>
           <el-button
             size="mini"
@@ -56,7 +56,7 @@ import axios from "axios";
 const baseUrl = "http://122.144.180.37:8001/";
 const getAllData = baseUrl + "queryall/";
 const deleteData = baseUrl + "deleteitem/";
-const viewImg = baseUrl + "viewpng/";
+const viewImg = baseUrl + "viewjpg/";
 export default {
   inject: ["reload"], //删除表项的时候可以刷新此组件
   name: "LungsDataManage",
