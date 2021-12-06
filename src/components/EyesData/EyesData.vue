@@ -26,6 +26,11 @@
         </el-menu-item>
         <el-menu-item
           style="padding-left: 40px; padding-right: 40px"
+          index="/eyes/manualannotation"
+          >手工标注
+        </el-menu-item>
+        <el-menu-item
+          style="padding-left: 40px; padding-right: 40px"
           index="/eyes/datamanage"
           >数据管理</el-menu-item
         >

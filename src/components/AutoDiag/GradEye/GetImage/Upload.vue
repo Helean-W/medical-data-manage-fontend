@@ -98,16 +98,16 @@ export default {
           console.log(res);
           switch (res.data) {
             case "0":
-              this.diagnosticResult = "等级0-无病";
+              this.diagnosticResult = "等级0-无糖网病";
               break;
             case "1":
-              this.diagnosticResult = "等级1-轻度糖网病";
+              this.diagnosticResult = "等级1-轻度非增殖期糖网病";
               break;
             case "2":
-              this.diagnosticResult = "等级2-中度糖网病";
+              this.diagnosticResult = "等级2-中度非增殖期糖网病";
               break;
             case "3":
-              this.diagnosticResult = "等级3-重度糖网病";
+              this.diagnosticResult = "等级3-重度非增殖期糖网病";
               break;
             case "4":
               this.diagnosticResult = "等级4-增殖期糖网病";

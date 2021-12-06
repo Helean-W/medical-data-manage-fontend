@@ -118,7 +118,7 @@ export default {
   },
   beforeMount() {
     // console.log(window.innerHeight);
-    this.tableHeight = window.innerHeight - 250; //表格自适应高度
+    this.tableHeight = window.innerHeight - 150; //表格自适应高度
   },
   methods: {
     handleImg(index, row) {

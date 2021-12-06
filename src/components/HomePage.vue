@@ -5,7 +5,7 @@
         <el-row>
           <el-col :span="2"
             ><div>
-              <img
+              <!-- <img
                 src="../assets/imgs/logo.png"
                 alt=""
                 style="
@@ -16,11 +16,12 @@
                   left: 0;
                   z-index: 9999;
                 "
-              /></div
-          ></el-col>
+              /> -->
+            </div></el-col
+          >
           <el-col :span="20"
             ><h1 style="position: absolute; left: 40%">
-              多维医疗影像数据管理系统
+              医疗影像大数据平台
             </h1></el-col
           >
           <!-- <el-col :span="4" class="login">
@@ -49,7 +50,7 @@
             <el-carousel-item style="height: 400px">
               <div style="height: 100%; width: 100%; cursor: pointer">
                 <img
-                  src="../assets/imgs/a.png"
+                  src="../assets/imgs/bg.png"
                   alt=""
                   style="height: 100%; width: 100%; margin: 0"
                 />

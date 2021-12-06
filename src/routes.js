@@ -16,6 +16,7 @@ import EyesDataCollection from './components/EyesData/DataCollection/DataCollect
 import EyesMultiUpload from './components/EyesData/DataCollection/UploadData/MultiUpload'
 import EyesSingleUpload from './components/EyesData/DataCollection/UploadData/SingleUpload'
 import EyesDownload from './components/EyesData/DataCollection/DownloadData'
+import ManualAnnotation from './components/EyesData/ManualAnnotation/ManualAnnotation'
 import EyesDataManage from './components/EyesData/DataManage/DataManage'
 import EyesDataStatic from './components/EyesData/DataStatic/DataStatic'
 import EyesChart from './components/EyesData/DataStatic/Charts/EyesChart'
@@ -69,6 +70,7 @@ const router = new VueRouter({
             component: EyesData,
             children: [
                 { path: 'datacollection', component: EyesDataCollection, children: [{ path: 'multiupload', component: EyesMultiUpload }, { path: 'singleupload', component: EyesSingleUpload }, { path: 'download', component: EyesDownload }] },
+                { path: 'manualannotation', component: ManualAnnotation },
                 { path: 'datamanage', component: EyesDataManage },
                 { path: 'datastatic', component: EyesDataStatic, children: [{ path: 'eyeschart', component: EyesChart }, { path: 'allchart', component: EyesAllChart }] },
             ]

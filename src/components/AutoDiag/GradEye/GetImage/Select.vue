@@ -27,6 +27,8 @@
       <el-table-column label="年龄" prop="age"> </el-table-column>
       <el-table-column label="部位" prop="position"> </el-table-column>
       <el-table-column label="影像" prop="url"> </el-table-column>
+      <el-table-column label="手工标注结果" prop="manual_annotation">
+      </el-table-column>
       <el-table-column align="right">
         <template slot="header" slot-scope="{}">
           <el-input
@@ -76,8 +78,10 @@
 import axios from "axios";
 const baseUrl = "http://122.144.180.37:8001/";
 const getAllData = baseUrl + "queryall/";
+const getAllAnnotation = baseUrl + "queryallannotation/";
 const viewImg = baseUrl + "viewjpg/";
 const diagImg = baseUrl + "gradexist/";
+const autoAnnotation = baseUrl + "autoannotation/";
 export default {
   inject: ["reload"],
   name: "SelectEye",
@@ -86,6 +90,7 @@ export default {
       diagLoading: false,
       tableHeight: null,
       tableData: [],
+      allAnnotation: [],
       search: "",
       loading: true,
       img_base64: "",
@@ -96,7 +101,7 @@ export default {
   },
   created() {
     axios.get(getAllData).then(
-      (response) => {
+      async (response) => {
         console.log("获取结果", response.data);
         if (response.data.ret.length != "undefined") {
           for (let i = 0; i < response.data.ret.length; i++) {
@@ -111,6 +116,35 @@ export default {
           this.tableData = this.tableData.filter((data) => {
             return data.position === "眼底";
           });
+          await axios.get(getAllAnnotation).then(
+            (response) => {
+              console.log("获取结果", response.data);
+              if (response.data.ret.length != "undefined") {
+                for (let i = 0; i < response.data.ret.length; i++) {
+                  let temp = {};
+                  temp["id"] = response.data.ret[i][0];
+                  temp["auto_annotation"] = response.data.ret[i][1];
+                  temp["manual_annotation"] = response.data.ret[i][2];
+                  this.allAnnotation.push(temp);
+                }
+              }
+            },
+            (error) => {
+              console.log("获取失败", error.message);
+            }
+          );
+          for (let i = 0; i < this.tableData.length; i++) {
+            this.tableData[i].auto_annotation = "(未标注)";
+            for (let j = 0; j < this.allAnnotation.length; j++) {
+              if (this.allAnnotation[j].id == this.tableData[i].id) {
+                this.tableData[i].manual_annotation =
+                  this.allAnnotation[j].manual_annotation === null
+                    ? "(未标注)"
+                    : this.allAnnotation[j].manual_annotation;
+                break;
+              }
+            }
+          }
         }
         this.loading = false;
       },
@@ -122,7 +156,7 @@ export default {
   },
   beforeMount() {
     // console.log(window.innerHeight);
-    this.tableHeight = window.innerHeight - 250; //表格自适应高度
+    this.tableHeight = window.innerHeight - 150; //表格自适应高度
   },
   methods: {
     handleImg(index, row) {
@@ -152,25 +186,40 @@ export default {
           },
         })
         .then(
-          (response) => {
+          async (response) => {
             console.log("结果", response.data);
             switch (response.data.data) {
               case "0":
-                this.diagnosticResult = "等级0-无病";
+                this.diagnosticResult = "等级0-无糖网病";
                 break;
               case "1":
-                this.diagnosticResult = "等级1-轻度糖网病";
+                this.diagnosticResult = "等级1-轻度非增殖期糖网病";
                 break;
               case "2":
-                this.diagnosticResult = "等级2-中度糖网病";
+                this.diagnosticResult = "等级2-中度非增殖期糖网病";
                 break;
               case "3":
-                this.diagnosticResult = "等级3-重度糖网病";
+                this.diagnosticResult = "等级3-重度非增殖期糖网病";
                 break;
               case "4":
                 this.diagnosticResult = "等级4-增殖期糖网病";
                 break;
             }
+            await axios
+              .get(autoAnnotation, {
+                params: {
+                  id: row.id,
+                  annotation: this.diagnosticResult,
+                },
+              })
+              .then(
+                (response) => {
+                  console.log("结果", response.data);
+                },
+                (error) => {
+                  console.log("失败", error.message);
+                }
+              );
             this.diagLoading = false;
             this.dialogVisible2 = true;
           },

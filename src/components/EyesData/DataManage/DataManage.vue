@@ -22,6 +22,10 @@
       <el-table-column label="年龄" prop="age"> </el-table-column>
       <el-table-column label="部位" prop="position"> </el-table-column>
       <el-table-column label="影像" prop="url"> </el-table-column>
+      <el-table-column label="自动标注结果" prop="auto_annotation">
+      </el-table-column>
+      <el-table-column label="手工标注结果" prop="manual_annotation">
+      </el-table-column>
       <el-table-column align="right">
         <template slot="header" slot-scope="{}">
           <el-input
@@ -55,6 +59,7 @@
 import axios from "axios";
 const baseUrl = "http://122.144.180.37:8001/";
 const getAllData = baseUrl + "queryall/";
+const getAllAnnotation = baseUrl + "queryallannotation/";
 const deleteData = baseUrl + "deleteitem/";
 const viewImg = baseUrl + "viewjpg/";
 export default {
@@ -64,6 +69,7 @@ export default {
     return {
       tableHeight: null,
       tableData: [],
+      allAnnotation: [],
       search: "",
       loading: true,
       img_base64: "",
@@ -72,7 +78,7 @@ export default {
   },
   created() {
     axios.get(getAllData).then(
-      (response) => {
+      async (response) => {
         console.log("获取结果", response.data);
         if (response.data.ret.length != "undefined") {
           for (let i = 0; i < response.data.ret.length; i++) {
@@ -87,6 +93,40 @@ export default {
           this.tableData = this.tableData.filter((data) => {
             return data.position === "眼底";
           });
+          await axios.get(getAllAnnotation).then(
+            (response) => {
+              console.log("获取结果", response.data);
+              if (response.data.ret.length != "undefined") {
+                for (let i = 0; i < response.data.ret.length; i++) {
+                  let temp = {};
+                  temp["id"] = response.data.ret[i][0];
+                  temp["auto_annotation"] = response.data.ret[i][1];
+                  temp["manual_annotation"] = response.data.ret[i][2];
+                  this.allAnnotation.push(temp);
+                }
+              }
+            },
+            (error) => {
+              console.log("获取失败", error.message);
+            }
+          );
+          for (let i = 0; i < this.tableData.length; i++) {
+            this.tableData[i].auto_annotation = "(未标注)";
+            this.tableData[i].manual_annotation = "(未标注)";
+            for (let j = 0; j < this.allAnnotation.length; j++) {
+              if (this.allAnnotation[j].id == this.tableData[i].id) {
+                this.tableData[i].auto_annotation =
+                  this.allAnnotation[j].auto_annotation === null
+                    ? "(未标注)"
+                    : this.allAnnotation[j].auto_annotation;
+                this.tableData[i].manual_annotation =
+                  this.allAnnotation[j].manual_annotation === null
+                    ? "(未标注)"
+                    : this.allAnnotation[j].manual_annotation;
+                break;
+              }
+            }
+          }
         }
         this.loading = false;
       },

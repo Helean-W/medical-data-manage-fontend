@@ -20,7 +20,9 @@
           </el-menu-item>
         </el-menu>
       </el-aside>
-      <el-main><router-view></router-view></el-main>
+      <el-main style="height: 81vh; padding: 5px"
+        ><router-view></router-view
+      ></el-main>
     </el-container>
   </div>
 </template>
@@ -35,6 +37,6 @@ export default {
 
 <style scoped>
 .el-menu-vertical-demo {
-  height: 82vh;
+  height: 81vh;
 }
 </style>
