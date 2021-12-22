@@ -3,27 +3,20 @@
     <el-container>
       <el-header>
         <el-row>
-          <el-col :span="2"
+          <el-col :span="8"
             ><div>
-              <!-- <img
-                src="../assets/imgs/logo.png"
+              <img
+                src="../assets/imgs/logo.jpg"
                 alt=""
-                style="
-                  width: 150px;
-                  height: 55px;
-                  position: absolute;
-                  top: 5px;
-                  left: 0;
-                  z-index: 9999;
-                "
-              /> -->
+                style="width: 130px; height: 45px"
+              /></div
+          ></el-col>
+          <el-col :span="8"
+            ><div style="text-align: center">
+              <h1 style="font-size: 27px">医疗影像大数据平台</h1>
             </div></el-col
           >
-          <el-col :span="20"
-            ><h1 style="position: absolute; left: 40%">
-              医疗影像大数据平台
-            </h1></el-col
-          >
+          <el-col :span="8"></el-col>
           <!-- <el-col :span="4" class="login">
             <nav style="position: absolute; right: 3%">
               <a href="">注册</a> |
@@ -36,21 +29,39 @@
         <div>
           <el-carousel
             class="mainInfo"
-            style="width: 85%; margin: 10px auto 20px; height: 400px"
+            style="width: 85%; margin: 10px auto 20px; height: 500px"
           >
-            <el-carousel-item style="height: 400px">
+            <el-carousel-item style="height: 500px">
               <div style="height: 100%; width: 100%; cursor: pointer">
                 <img
-                  src="../assets/imgs/bg.png"
+                  src="../assets/imgs/1.jpg"
                   alt=""
                   style="height: 100%; width: 100%; margin: 0"
                 />
               </div>
             </el-carousel-item>
-            <el-carousel-item style="height: 400px">
+            <el-carousel-item style="height: 500px">
               <div style="height: 100%; width: 100%; cursor: pointer">
                 <img
-                  src="../assets/imgs/bg.png"
+                  src="../assets/imgs/2.jpg"
+                  alt=""
+                  style="height: 100%; width: 100%; margin: 0"
+                />
+              </div>
+            </el-carousel-item>
+            <el-carousel-item style="height: 500px">
+              <div style="height: 100%; width: 100%; cursor: pointer">
+                <img
+                  src="../assets/imgs/3.jpg"
+                  alt=""
+                  style="height: 100%; width: 100%; margin: 0"
+                />
+              </div>
+            </el-carousel-item>
+            <el-carousel-item style="height: 500px">
+              <div style="height: 100%; width: 100%; cursor: pointer">
+                <img
+                  src="../assets/imgs/4.jpg"
                   alt=""
                   style="height: 100%; width: 100%; margin: 0"
                 />
@@ -133,7 +144,7 @@ ul {
   padding: 0;
 }
 
-.el-carousel__item h2 {
+/* .el-carousel__item h2 {
   color: #475669;
   font-size: 18px;
   opacity: 0.75;
@@ -147,7 +158,7 @@ ul {
 
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
-}
+} */
 .el-header {
   background-color: white;
   color: #333;
@@ -201,7 +212,6 @@ ul {
   color: black;
   text-align: left;
   height: 650px;
-  background-image: url(../assets/imgs/bg.png);
   background-size: 100% 100%;
   width: 84%;
   position: relative;
