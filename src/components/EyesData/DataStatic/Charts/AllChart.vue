@@ -3,11 +3,11 @@
 </template>
 
 <script>
-import axios from "axios";
-const baseUrl = "http://122.144.180.37:8001/";
-const getAllData = baseUrl + "queryall/";
+// import axios from "axios";
+// const baseUrl = "http://122.144.180.37:8001/";
+// const getAllData = baseUrl + "queryall/";
 export default {
-  name: "EyesAllChart",
+  name: "AllChart",
   data() {
     return {
       allData: [],
@@ -15,18 +15,18 @@ export default {
 
       option: {
         title: {
-          text: "所有病例影像部位分布",
+          text: "不同部位医学影像分布",
           left: "center",
         },
         tooltip: {
           trigger: "item",
-          formatter: "{a} <br/>{b} : {c} ({d}%)",
+          formatter: "{a} <br/>{b} : {d}%",
         },
         legend: {
           orient: "vertical",
           left: "left",
           top: "10%",
-          data: ["胰腺", "肺部", "眼底", "不详"],
+          data: ["胰腺", "肺部", "眼底", "其它"],
         },
         series: [
           {
@@ -34,11 +34,17 @@ export default {
             type: "pie",
             radius: ["40%", "70%"],
             center: ["50%", "60%"],
+            label: {
+              normal: {
+                show: true,
+                formatter: "{b} - {d}%",
+              },
+            },
             data: [
-              { value: null, name: "胰腺" },
-              { value: null, name: "脑部" },
-              { value: null, name: "眼底" },
-              { value: null, name: "不详" },
+              { value: 200, name: "胰腺" },
+              { value: 130, name: "肺部" },
+              { value: 20, name: "眼底" },
+              { value: 700, name: "其它" },
             ],
             emphasis: {
               itemStyle: {
@@ -52,7 +58,7 @@ export default {
       },
     };
   },
-  created() {
+  /* created() {
     axios.get(getAllData).then(
       (response) => {
         console.log("获取结果", response.data);
@@ -93,7 +99,7 @@ export default {
         console.log("获取失败", error.message);
       }
     );
-  },
+  }, */
 };
 </script>
 

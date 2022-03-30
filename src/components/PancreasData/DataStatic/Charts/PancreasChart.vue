@@ -1,11 +1,18 @@
 <template>
-  <v-chart class="chart" :option="option"></v-chart>
+  <el-row>
+    <el-col :span="12"
+      ><div><v-chart class="chart" :option="option"></v-chart></div
+    ></el-col>
+    <el-col :span="12"
+      ><div><v-chart class="chart" :option="option2"></v-chart></div
+    ></el-col>
+  </el-row>
 </template>
 
 <script>
-import axios from "axios";
-const baseUrl = "http://122.144.180.37:8001/";
-const getAllData = baseUrl + "queryall/";
+// import axios from "axios";
+// const baseUrl = "http://122.144.180.37:8001/";
+// const getAllData = baseUrl + "queryall/";
 export default {
   name: "PancreasChart",
   data() {
@@ -15,12 +22,12 @@ export default {
 
       option: {
         title: {
-          text: "胰腺病例分布",
+          text: "胰腺影像性别分布",
           left: "center",
         },
         tooltip: {
           trigger: "item",
-          formatter: "{a} <br/>{b} : {c} ({d}%)",
+          formatter: "{a} <br/>{b} : {d}%",
         },
         legend: {
           orient: "vertical",
@@ -34,10 +41,16 @@ export default {
             type: "pie",
             radius: ["40%", "70%"],
             center: ["50%", "60%"],
+            label: {
+              normal: {
+                show: true,
+                formatter: "{b} - {d}%",
+              },
+            },
             data: [
-              { value: null, name: "男" },
-              { value: null, name: "女" },
-              { value: null, name: "不详" },
+              { value: 67, name: "男" },
+              { value: 43, name: "女" },
+              { value: 27, name: "不详" },
             ],
             emphasis: {
               itemStyle: {
@@ -49,9 +62,46 @@ export default {
           },
         ],
       },
+      option2: {
+        title: {
+          text: "胰腺影像年龄分布",
+          left: "center",
+        },
+        xAxis: {
+          type: "category",
+          data: [
+            "10岁以下",
+            "11-20岁",
+            "21-30岁",
+            "31-40岁",
+            "41-50岁",
+            "51-60岁",
+            "60岁以上",
+          ],
+        },
+        yAxis: {
+          name: "百分比(%)",
+        },
+        tooltip: {
+          trigger: "item",
+          formatter: "{a} <br/>{b} : {c}%",
+        },
+        series: [
+          {
+            type: "bar",
+            name: "男",
+            data: [0.03, 3.63, 21.47, 19.78, 17.39, 15.44, 22.26],
+          },
+          {
+            type: "bar",
+            name: "女",
+            data: [0.01, 3.22, 15.54, 17.42, 18.95, 20.03, 24.83],
+          },
+        ],
+      },
     };
   },
-  created() {
+  /* created() {
     axios.get(getAllData).then(
       (response) => {
         console.log("获取结果", response.data);
@@ -88,7 +138,7 @@ export default {
         console.log("获取失败", error.message);
       }
     );
-  },
+  }, */
 };
 </script>
 
