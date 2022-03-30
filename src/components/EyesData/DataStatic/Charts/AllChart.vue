@@ -26,7 +26,7 @@ export default {
           orient: "vertical",
           left: "left",
           top: "10%",
-          data: ["胰腺", "脑部", "眼底", "不详"],
+          data: ["胰腺", "肺部", "眼底", "不详"],
         },
         series: [
           {
@@ -73,7 +73,7 @@ export default {
           return data.position === "胰腺";
         }).length;
         this.positionDis[1] = this.allData.filter((data) => {
-          return data.position === "脑部";
+          return data.position === "肺部";
         }).length;
         this.positionDis[2] = this.allData.filter((data) => {
           return data.position === "眼底";
